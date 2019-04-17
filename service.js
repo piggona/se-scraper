@@ -29,7 +29,7 @@ let config = {
     // whether to start the browser in headless mode
     headless: false,
     // path to output file, data will be stored in JSON
-    output_file: 'examples/results/google.json',
+    output_file: '/root/hao-scrape/examples/results/google.json',
     // whether to prevent images, css, fonts from being loaded
     // will speed up scraping a great deal
     block_assets: false,
@@ -38,7 +38,7 @@ let config = {
     // get_browser, handle_metadata, close_browser
     // must be an absolute path to the module
     //custom_func: resolve('examples/pluggable.js'),
-    custom_func: '/Users/haohao/Documents/se-scraper/examples/pluggable.js',
+    custom_func: '/root/hao-scrape/examples/pluggable.js',
     // use a proxy for all connections
     // example: 'socks5://78.94.172.42:1080'
     // example: 'http://118.174.233.10:48400'
@@ -65,7 +65,7 @@ let config = {
 
 function get_proxy() {
     return new Promise((resolve, reject) => {
-        let url = 'http://127.0.0.1:5010/get';
+        let url = 'http://127.0.0.1:5010/get/';
         let option = {
             url: url,
             method: "GET"
@@ -105,10 +105,11 @@ router.get('/search',async(ctx,next) => {
     let proxy = ''
     get_proxy().then(function(req){
         proxy = req;
+        console.log('http://'+proxy)
+        let result = await se_scraper.scrape(config, callback);
+        ctx.response.body = result
     })
-    console.log('http://'+proxy)
-    let result = await se_scraper.scrape(config, callback);
-    ctx.response.body = result
+    
 })
 
 router.get('/:name/:race', async(ctx,next) => {
