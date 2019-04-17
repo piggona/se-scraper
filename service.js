@@ -104,8 +104,9 @@ router.get('/search',async(ctx,next) => {
 
     let proxy = ''
     get_proxy().then(function(req){
-        proxy = req;
-        console.log('http://'+proxy)
+        proxy = 'http://'+req;
+        console.log('http://'+proxy);
+        config['proxy'] = proxy;
     })
     let result = await se_scraper.scrape(config, callback);
     ctx.response.body = result
