@@ -1,4 +1,4 @@
-const { Cluster } = require('./src/puppeteer-cluster/dist/index.js');
+// const { Cluster } = require('./src/puppeteer-cluster/dist/index.js');
 const handler = require('./src/node_scraper.js');
 var fs = require('fs');
 var os = require("os");
@@ -53,7 +53,7 @@ exports.scrape = async function(user_config, callback) {
         puppeteer_cluster_config: {
             timeout: 30 * 60 * 1000, // max timeout set to 30 minutes
             monitor: false,
-            concurrency: Cluster.CONCURRENCY_BROWSER,
+            // concurrency: Cluster.CONCURRENCY_BROWSER,
             maxConcurrency: 1,
         }
     };
@@ -63,11 +63,11 @@ exports.scrape = async function(user_config, callback) {
         config[key] = user_config[key];
     }
 
-    if (fs.existsSync(config.keyword_file)) {
+    if (fs.existsSync(config.keyword_file)) { // 检查关键词文件路径是否存在
         config.keywords = read_keywords_from_file(config.keyword_file);
     }
 
-    if (fs.existsSync(config.proxy_file)) {
+    if (fs.existsSync(config.proxy_file)) { // 检查代理文件路径是否存在
         config.proxies = read_keywords_from_file(config.proxy_file);
         if (config.verbose) {
             console.log(`${config.proxies.length} proxies loaded.`);
@@ -85,7 +85,8 @@ exports.scrape = async function(user_config, callback) {
         }
     }
 
-    await handler.handler(config, undefined, callback );
+    result = await handler.handler(config, undefined, callback );
+    return Promise.resolve(result);
 };
 
 function read_keywords_from_file(fname) {

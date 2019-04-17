@@ -4,6 +4,7 @@ module.exports = {
 
 function random_user_agent() {
 	let rand = user_agents[Math.floor(Math.random()*user_agents.length)];
+	return rand
 }
 
 // updated: 29 Jan 2019

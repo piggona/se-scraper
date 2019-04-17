@@ -59,9 +59,9 @@ module.exports = class Pluggable {
             launch_args.headless = this.headless;
         }
 
-        this.browser = await puppeteer.launch(launch_args);
+        this.browser = await puppeteer.launch(args);
         console.log('Loaded custom function get_browser()');
-        console.log(launch_args);
+        console.log(args);
 
         return this.browser;
     }

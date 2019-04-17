@@ -248,7 +248,7 @@ module.exports.handler = async function handler (event, context, callback) {
             console.log(`On average ms/request: ${ms_per_request}ms/request`);
         }
 
-        if (config.compress === true) {
+        if (config.compress === true) { // 压缩爬虫结果zlib
             results = JSON.stringify(results);
             // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding
             results = zlib.deflateSync(results).toString('base64');
@@ -276,7 +276,7 @@ module.exports.handler = async function handler (event, context, callback) {
             console.log(metadata);
         }
 
-        if (pluggable.handle_metadata) {
+        if (pluggable.handle_metadata) { //存储爬虫的metadata
             await pluggable.handle_metadata({metadata: metadata, config: config});
         }
 
@@ -293,7 +293,8 @@ module.exports.handler = async function handler (event, context, callback) {
           statusCode: 200
         };
 
-        callback(null, response);
+        // callback(null, response);
+        return Promise.resolve(response)
 
     }  catch (e) {
         callback(e, null);

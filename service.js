@@ -1,4 +1,8 @@
+const Koa = require('koa');
+const app = new Koa();
+const router = require('koa-router')();
 const se_scraper = require('./index.js');
+const request = require('request');
 
 let config = {
     // the user agent to scrape with
@@ -59,6 +63,21 @@ let config = {
     }
 };
 
+function get_proxy() {
+    return new Promise((resolve, reject) => {
+        let url = 'http://127.0.0.1:5010/get';
+        let option = {
+            url: url,
+            method: "GET"
+        }
+        request(option,function(error, response, body){
+            if (!error && response.statusCode == 200){
+                resolve(body);
+            }
+        })
+    })
+}
+
 function callback(err, response) {
     if (err) { console.error(err) }
 
@@ -72,4 +91,35 @@ function callback(err, response) {
     console.dir(response.results, {depth: null, colors: true});
 }
 
-se_scraper.scrape(config, callback);
+app.use(async (ctx, next) => {
+    console.log('Process ${ctx.request.method} ${ctx.request.url}...');
+    await next();
+})
+router.get('/search',async(ctx,next) => {
+    let keyword = [];
+    let query = ctx.request.query['name'];
+    keyword.push(query);
+    console.log(keyword)
+    config['keywords'] = keyword;
+
+    let proxy = ''
+    get_proxy().then(function(req){
+        proxy = req;
+    })
+    console.log('http://'+proxy)
+    let result = await se_scraper.scrape(config, callback);
+    ctx.response.body = result
+})
+
+router.get('/:name/:race', async(ctx,next) => {
+    console.log(ctx.params);
+    console.log(ctx.request.query)
+    ctx.response.status =404;
+    ctx.response.body = ctx.request.query;
+})
+
+app.use(router.routes())
+
+app.listen(3000,()=>{
+    console.log('server is running at http://localhost:3000')
+});
