@@ -68,8 +68,9 @@ module.exports.handler = async function handler (event, context, callback) {
 
         // See here: https://peter.sh/experiments/chromium-command-line-switches/
         var ADDITIONAL_CHROME_FLAGS = [
+            '--headless',
             '--disable-infobars',
-            '--window-position=0,0',
+            // '--window-position=0,0',
             '--ignore-certifcate-errors',
             '--ignore-certifcate-errors-spki-list',
             '--no-sandbox',
@@ -77,8 +78,8 @@ module.exports.handler = async function handler (event, context, callback) {
             '--disable-dev-shm-usage',
             '--disable-accelerated-2d-canvas',
             '--disable-gpu',
-            '--window-size=1920x1080',
-            '--hide-scrollbars',
+            // '--window-size=1920x1080',
+            // '--hide-scrollbars',
             '--disable-notifications',
         ];
 
