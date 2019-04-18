@@ -78,11 +78,11 @@ async function scrape(keywords) {
     keyword.push(keywords);
     config['keywords'] = keyword
 
-    proxy_ob = proxy().then(function(req){
-        proxy = 'http://'+req;
-        console.log('http://'+proxy);
-        config['proxy'] = proxy;
-    })
+    req = await proxy()
+    
+    proxy = 'http://'+req;
+    console.log('http://'+proxy);
+    config['proxy'] = proxy;
     let result = await se_scraper.scrape(config, callback);
     return result;
 }
