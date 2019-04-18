@@ -82,7 +82,7 @@ async function scrape(keywords) {
     console.log(req)
     let proxy_result = 'http://'+req;
     console.log(proxy_result);
-    config['proxy'] = proxy;
+    config['proxy'] = proxy_result;
     let result = await se_scraper.scrape(config, callback);
     return result;
 }
