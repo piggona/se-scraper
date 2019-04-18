@@ -1,20 +1,24 @@
 const request = require('request');
 
-async function get_proxy() {
-    let url = 'http://127.0.0.1:5010/get/';
-    let option = {
+function synchronous_post(url) {
+    let options = {
         url: url,
         method: "GET"
     }
-    request(option,async function(error, response, body){
-        if (!error && response.statusCode == 200){
-            console.log(body)
-            return Promise.resolve(body);
-        }
-        else{
-            return Promise.reject(body);
-        }
-    })
+    return new Promise(function(resolve, reject){
+        request.get(options , function(error,response,body){
+            if(error){
+                reject(error);
+            }else{
+                resolve(body);
+            }
+        });
+    });
+}
+let get_proxy = async function(){
+    let url = 'http://127.0.0.1:5010/get/';
+    let proxy = await synchronous_post(url);
+    return proxy
 }
 
 module.exports = get_proxy
