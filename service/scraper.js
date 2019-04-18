@@ -26,7 +26,7 @@ let config = {
     // whether to start the browser in headless mode
     headless: false,
     // path to output file, data will be stored in JSON
-    output_file: '/Users/haohao/Documents/se-scraper/examples/results/google.json',
+    output_file: '/root/hao-scrape/examples/results/google.json',
     // whether to prevent images, css, fonts from being loaded
     // will speed up scraping a great deal
     block_assets: false,
