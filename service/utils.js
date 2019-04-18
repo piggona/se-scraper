@@ -18,7 +18,7 @@ function synchronous_post(url) {
 let get_proxy = async function(){
     let url = 'http://127.0.0.1:5010/get/';
     let proxy = await synchronous_post(url);
-    return proxy
+    return Promise.resolve(proxy)
 }
 
 module.exports = get_proxy
