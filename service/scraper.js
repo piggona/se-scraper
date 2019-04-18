@@ -78,7 +78,7 @@ async function scrape(keywords) {
     keyword.push(keywords);
     config['keywords'] = keyword
 
-    req = await proxy()
+    let req = await proxy()
     console.log(req)
     proxy = 'http://'+req;
     console.log('http://'+proxy);
