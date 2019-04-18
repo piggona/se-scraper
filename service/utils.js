@@ -6,7 +6,7 @@ async function get_proxy() {
         url: url,
         method: "GET"
     }
-    request(option,function(error, response, body){
+    request(option,async function(error, response, body){
         if (!error && response.statusCode == 200){
             console.log(body)
             return Promise.resolve(body);
