@@ -1,4 +1,5 @@
-const se_scraper = require('./index.js');
+const se_scraper = require('../index.js');
+const proxy = require('./utils');
 
 let config = {
     // the user agent to scrape with
@@ -9,7 +10,7 @@ let config = {
     // is drawn before every request. empty string for no sleeping.
     sleep_range: '[1,2]',
     // which search engine to scrape
-    search_engine: 'baidu',
+    search_engine: 'google',
     // whether debug information should be printed
     // debug info is useful for developers when debugging
     debug: false,
@@ -25,7 +26,7 @@ let config = {
     // whether to start the browser in headless mode
     headless: false,
     // path to output file, data will be stored in JSON
-    output_file: 'examples/results/google.json',
+    output_file: '/Users/haohao/Documents/se-scraper/examples/results/google.json',
     // whether to prevent images, css, fonts from being loaded
     // will speed up scraping a great deal
     block_assets: false,
@@ -34,7 +35,7 @@ let config = {
     // get_browser, handle_metadata, close_browser
     // must be an absolute path to the module
     //custom_func: resolve('examples/pluggable.js'),
-    custom_func: '/Users/haohao/Documents/se-scraper/examples/pluggable.js',
+    // custom_func: '/Users/haohao/Documents/se-scraper/examples/pluggable.js',
     // use a proxy for all connections
     // example: 'socks5://78.94.172.42:1080'
     // example: 'http://118.174.233.10:48400'
@@ -42,7 +43,7 @@ let config = {
     // a file with one proxy per line. Example:
     // socks5://78.94.172.42:1080
     // http://118.174.233.10:48400
-    proxy_file: '',
+    // proxy_file: '',
     // check if headless chrome escapes common detection techniques
     // this is a quick test and should be used for debugging
     test_evasion: false,
@@ -71,8 +72,19 @@ function callback(err, response) {
 
     console.dir(response.results, {depth: null, colors: true});
 }
-async function get_scrape(){
-    result = await se_scraper.scrape(config, callback);
-    console.log(result)
+
+async function scrape(keywords) {
+    let keyword = [];
+    keyword.push(keywords);
+    config['keywords'] = keyword
+
+    proxy_ob = proxy().then(async function(req){
+        proxy = 'http://'+req;
+        console.log('http://'+proxy);
+        config['proxy'] = proxy;
+        let result = await se_scraper.scrape(config, callback);
+        return result;
+    })
 }
-get_scrape()
+
+module.exports = scrape

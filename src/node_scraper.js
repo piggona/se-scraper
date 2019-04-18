@@ -70,7 +70,7 @@ module.exports.handler = async function handler (event, context, callback) {
         var ADDITIONAL_CHROME_FLAGS = [
             '--headless',
             '--disable-infobars',
-            // '--window-position=0,0',
+            '--window-position=0,0',
             '--ignore-certifcate-errors',
             '--ignore-certifcate-errors-spki-list',
             '--no-sandbox',
@@ -78,8 +78,8 @@ module.exports.handler = async function handler (event, context, callback) {
             '--disable-dev-shm-usage',
             '--disable-accelerated-2d-canvas',
             '--disable-gpu',
-            // '--window-size=1920x1080',
-            // '--hide-scrollbars',
+            '--window-size=1920x1080',
+            '--hide-scrollbars',
             '--disable-notifications',
         ];
 
@@ -104,6 +104,7 @@ module.exports.handler = async function handler (event, context, callback) {
             // https://www.systutorials.com/241062/how-to-set-google-chromes-proxy-settings-in-command-line-on-linux/
             // [<proxy-scheme>://]<proxy-host>[:<proxy-port>]
             // "http", "socks", "socks4", "socks5".
+            console.log(config.proxy)
             ADDITIONAL_CHROME_FLAGS.push(
                 '--proxy-server=' + config.proxy,
             )
@@ -151,7 +152,7 @@ module.exports.handler = async function handler (event, context, callback) {
 
             // if no custom start_browser functionality was given
             // use puppeteer-cluster for scraping
-            const { Cluster } = require('./puppeteer-cluster/dist/index.js');
+            const { Cluster } = require('puppeteer-cluster');
 
             var numClusters = config.puppeteer_cluster_config.maxConcurrency;
             var perBrowserOptions = [];

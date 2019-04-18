@@ -25,14 +25,15 @@
     "cheerio": "^1.0.0-rc.2",
     "debug": "^4.1.1",
     "got": "^9.6.0",
-    "proxy-chain": "^0.2.7",
-    "puppeteer-cluster": "^0.13.0"
+    "proxy-chain": "^0.2.7"
   },
   "devDependencies": {
     "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
     "koa-route": "^3.2.0",
     "koa-router": "^7.4.0",
     "puppeteer": "^1.13.0",
+    "puppeteer-cluster": "^0.13.2",
     "request": "^2.88.0"
   }
 }
