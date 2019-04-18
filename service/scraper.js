@@ -80,8 +80,8 @@ async function scrape(keywords) {
 
     let req = await proxy()
     console.log(req)
-    let proxy = 'http://'+req;
-    console.log(proxy);
+    let proxy_result = 'http://'+req;
+    console.log(proxy_result);
     config['proxy'] = proxy;
     let result = await se_scraper.scrape(config, callback);
     return result;
