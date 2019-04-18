@@ -82,9 +82,9 @@ async function scrape(keywords) {
         proxy = 'http://'+req;
         console.log('http://'+proxy);
         config['proxy'] = proxy;
-        let result = await se_scraper.scrape(config, callback);
-        return result;
     })
+    let result = await se_scraper.scrape(config, callback);
+    return result;
 }
 
 module.exports = scrape
