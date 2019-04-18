@@ -78,7 +78,7 @@ async function scrape(keywords) {
     keyword.push(keywords);
     config['keywords'] = keyword
 
-    proxy_ob = proxy().then(async function(req){
+    proxy_ob = proxy().then(function(req){
         proxy = 'http://'+req;
         console.log('http://'+proxy);
         config['proxy'] = proxy;
