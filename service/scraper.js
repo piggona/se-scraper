@@ -10,7 +10,7 @@ let config = {
     // is drawn before every request. empty string for no sleeping.
     sleep_range: '[1,2]',
     // which search engine to scrape
-    search_engine: 'google',
+    search_engine: 'baidu',
     // whether debug information should be printed
     // debug info is useful for developers when debugging
     debug: false,
