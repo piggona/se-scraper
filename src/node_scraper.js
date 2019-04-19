@@ -300,6 +300,7 @@ module.exports.handler = async function handler (event, context, callback) {
 
     }  catch (e) {
         callback(e, null);
+        return Promise.reject(e)
     }
 };
 
