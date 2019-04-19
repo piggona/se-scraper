@@ -21,7 +21,7 @@ exports.scrape = async function(user_config, callback) {
         // is drawn before every request. empty string for no sleeping.
         sleep_range: '',
         // which search engine to scrape
-        search_engine: 'google',
+        search_engine: 'baidu',
         compress: false, // compress
         debug: false,
         verbose: true,
